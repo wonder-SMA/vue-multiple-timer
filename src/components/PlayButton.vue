@@ -19,7 +19,7 @@ export default {
   display: block;
   width: 17px;
   height: 20px;
-  background: var(--background);
+  background: var(--color);
   cursor: var(--cursor);
   clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
   touch-action: manipulation;

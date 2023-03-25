@@ -18,7 +18,7 @@ export default {
   display: block;
   width: 20px;
   height: 20px;
-  background: var(--background);
+  background: var(--color);
   cursor: var(--cursor);
   touch-action: manipulation;
 }

@@ -17,18 +17,10 @@ export default {
 .pause-button {
   position: relative;
   display: block;
-  width: 10px;
+  width: 16px;
   height: 20px;
   cursor: var(--cursor);
   touch-action: manipulation;
-}
-
-.pause-button::before {
-  left: 0;
-}
-
-.pause-button::after {
-  right: 0;
 }
 
 .pause-button::before, .pause-button::after {
@@ -37,6 +29,14 @@ export default {
   height: 20px;
   transform: rotate(180deg);
   content: "";
-  background: var(--background);
+  background: var(--color);
+}
+
+.pause-button::before {
+  left: 3px;
+}
+
+.pause-button::after {
+  left: 10px;
 }
 </style>
