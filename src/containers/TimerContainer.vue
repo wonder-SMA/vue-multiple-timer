@@ -14,6 +14,7 @@ export default {
 
   data() {
     return {
+      startTime: 0,
       currentTime: 0,
       currentState: 'pause',
       isStopped: false,
@@ -34,12 +35,13 @@ export default {
         const { action } = event.target.dataset;
         switch (action) {
           case 'play':
-            this.start();
+            this.startTime = Date.now();
             this.currentState = action;
+            this.start();
             break;
           case 'pause':
-            this.pause();
             this.currentState = action;
+            this.pause();
             break;
           case 'stop':
             this.stop();
@@ -51,32 +53,30 @@ export default {
     },
 
     start() {
-      this.timedId = setInterval(() => {
+      // Checking the delay from the timer start time
+      const delay = (Date.now() - this.startTime) - this.currentTime * 1000;
+      this.timedId = setTimeout(() => {
         this.currentTime += 1;
-      }, 1000);
+      }, Math.max(1000 - delay, 0));
     },
 
     pause() {
-      clearInterval(this.timedId);
+      clearTimeout(this.timedId);
     },
 
     stop() {
-      clearInterval(this.timedId);
+      clearTimeout(this.timedId);
       this.isStopped = true;
       this.$refs.timerRef.$el.style.setProperty('--cursor', 'auto');
       this.$refs.timerRef.$el.style.setProperty('--color', '#9E9E9E');
     },
-  },
-
-  beforeUnmount() {
-    clearInterval(this.timedId);
   },
 };
 </script>
 
 <template>
   <timer-layout ref="timerRef">
-    <timer-display :time="timedId ? formattedTime : ''" />
+    <timer-display :time="formattedTime" @updated="start" />
     <timer-separator />
     <timer-controls-layout @click="onClick">
       <play-button v-if="currentState === 'pause'" />

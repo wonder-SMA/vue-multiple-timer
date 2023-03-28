@@ -5,6 +5,14 @@ export default {
   props: {
     time: String,
   },
+
+  emits: {
+    'updated': null,
+  },
+
+  updated() {
+    this.$emit('updated');
+  },
 };
 </script>
 
